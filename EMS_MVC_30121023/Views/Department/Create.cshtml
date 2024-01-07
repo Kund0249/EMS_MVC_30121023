@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EMS_MVC_30121023.Models.Department.DepartmentModel
+@{
     Layout = null;
 }
 
@@ -10,30 +11,39 @@
     <title>Create</title>
 </head>
 <body>
-    <form method="post">
+    <form  method="post">
         <div>
             <table>
                 <tr>
                     <th>Department Code</th>
                     <td>
-                        <input type="text" name="DepartmentCode" />
+                        @*<input type="text" name="DepartmentCode" />*@
+                        @*@Html.TextBox("DepartmentCode")*@
+                        @Html.TextBoxFor(x => x.DepartmentCode)
                     </td>
                 </tr>
                 <tr>
                     <th>Department Name</th>
                     <td>
-                        <input type="text" name="DepartmentName" />
+                        @*<input type="text" name="DepartmentName" />*@
+                        @*@Html.TextBox("DepartmentName")*@
+                        @Html.TextBoxFor(m => m.DepartmentName)
+                    </td>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <input type="submit" value="Create Department" />
-                    </td>
+                    <th colspan="2">
+                        <input type="submit" value="Save" />
+                    </th>
+
                 </tr>
             </table>
-
+        </div>
+        <div>
+            <br />
+            <span style="color:red">@ViewBag.Message</span>
         </div>
     </form>
-    
+  
 </body>
 </html>
