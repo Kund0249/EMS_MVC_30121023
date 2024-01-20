@@ -1,21 +1,17 @@
 ﻿@model IEnumerable<EMS_MVC_30121023.Models.Department.DepartmentModel>
-@{
-    Layout = null;
-}
 
-<!DOCTYPE html>
+@*@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
+
     <div>
-        <h2>Hello John From - Index View</h2>
+       
+        @Html.ActionLink("Create New", "Create", null, new {@class="btn btn-primary"})
+        
         <span style="color:red">@TempData["Message"]</span>
         <br />
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>Department Id</th>
@@ -41,12 +37,21 @@
 
                                 @using (Html.BeginForm("Delete", "Department", new { id = item.DepartmentId }, FormMethod.Post))
                                 {
-                                    <input type="submit" value="Remove" />
+
+                                <div class="btn-group" role="group">
+                                    <input type="submit" value="Remove" class="btn btn-sm btn-danger" />
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentId },new {@class= "btn btn-sm btn-primary" })
+
+                                </div>
+
                                 }
                             </td>
                             @*<td>
                               @Html.ActionLink("Remove","Delete",new {id= item.DepartmentId })
                             </td>*@
+                            <td>
+                                @*<a href="/Department/Edit/@item.DepartmentId">Edit</a>*@
+                            </td>
                         </tr>
                     }
             }
@@ -76,5 +81,4 @@
                 <hr />
             }*@
     </div>
-</body>
-</html>
+

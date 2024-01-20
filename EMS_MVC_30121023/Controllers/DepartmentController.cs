@@ -70,15 +70,39 @@ namespace EMS_MVC_30121023.Controllers
         [HttpPost]
         public ActionResult Create(DepartmentModel model)
         {
-            //code to save data
-            if (_repository.Save(model,out string errormessage))
-                return RedirectToAction("Index");
-            else
+            if (ModelState.IsValid)
             {
-                ViewBag.Message = errormessage;
-                return View();
+                if (_repository.Save(model, out string errormessage))
+                    return RedirectToAction("Index");
+                else
+                    ViewBag.Message = errormessage;
             }
-              
+                
+           return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+           DepartmentModel model = _repository.GetDepartment(id);
+            if(model != null)
+            {
+                return View(model);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+
+        public ActionResult Edit(DepartmentModel model)
+        {
+            if(_repository.Update(model,out string Message))
+            {
+                return RedirectToAction("Index");
+            }
+            ViewBag.Message = Message;
+            return View();
         }
 
         [HttpPost]
