@@ -1,0 +1,66 @@
+﻿@model EMS_MVC_30121023.Models.Employee.EmployeeModel
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="row">
+                @Html.TextBoxFor(x => x.ProfilePicture, new { @class = "form-control form-control-sm", type = "File" })
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Employee Name</label>
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="Gender" class="form-label">Select Geneder</label>
+                        @Html.RadioButtonFor(x => x.Gender, "M") Male
+                        @Html.RadioButtonFor(x => x.Gender, "F") Female
+                    </div>
+                    <div class="mb-3">
+                        <label for="ContactNumber" class="form-label">Employee Mob</label>
+                        @Html.TextBoxFor(x => x.ContactNumber, new { @class = "form-control" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="ContactNumber" class="form-label">Employee Email</label>
+                        @Html.TextBoxFor(x => x.EmailAddress, new { @class = "form-control" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="BankAcc" class="form-label">Employee Bank Acc</label>
+                        @Html.TextBoxFor(x => x.BankAcc, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="DepartmentId" class="form-label">Select Department</label>
+                        @Html.DropDownListFor(x => x.DepartmentId, new List<SelectListItem>()
+                        {
+                        new SelectListItem(){Text="Department Manager",Value="1"},
+                        new SelectListItem(){Text="Finance & Account",Value="2"},
+                        new SelectListItem(){Text="Brokerage Manager",Value="3"},
+                        new SelectListItem(){Text="System ADMIN",Value="4"}
+                      }, "Select", new { @class = "form-control" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="DOJ" class="form-label">Employee DOJ</label>
+                        @Html.TextBoxFor(x => x.DOJ, new { @class = "form-control", type = "date" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="Salary" class="form-label">Employee Salary</label>
+                        @Html.TextBoxFor(x => x.Salary, new { @class = "form-control" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="CnfBankAcc" class="form-label">Confirm Bank Acc</label>
+                        @Html.TextBoxFor(x => x.CnfBankAcc, new { @class = "form-control" })
+                    </div>
+
+                    <div class="d-grid gap-2 col-6 mx-auto mt-3">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
