@@ -3,11 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using EMS_MVC_30121023.Models.Department;
 
 namespace EMS_MVC_30121023.Models.Employee
 {
     public class EmployeeModel
     {
+        private readonly DepartmentRepository repository;
+        public EmployeeModel()
+        {
+            repository = new DepartmentRepository();
+            DepartmentList = new List<SelectListItem>();
+            foreach (DepartmentModel department in repository.GetDepartments)
+            {
+                DepartmentList.Add(new SelectListItem()
+                {
+                    Text = department.DepartmentName,
+                    Value = department.DepartmentId.ToString()
+                });
+            }
+        }
+        public List<SelectListItem> DepartmentList { get; }
         public int EmployeeId { get; set; }
 
         [Required]
@@ -27,14 +44,14 @@ namespace EMS_MVC_30121023.Models.Employee
         public DateTime DOJ { get; set; }
 
         [Required]
-        [Range(500000,3000000)]
+        [Range(500000, 3000000)]
         public int Salary { get; set; }
 
         [Required]
         public string BankAcc { get; set; }
 
         [Required]
-        [Compare("BankAcc")]
+        [System.ComponentModel.DataAnnotations.Compare("BankAcc")]
         public string CnfBankAcc { get; set; }
 
         [Required]
@@ -44,7 +61,7 @@ namespace EMS_MVC_30121023.Models.Employee
         public HttpPostedFileBase ProfilePicture { get; set; }
 
 
-        public static EmployeeEntity Convert(EmployeeModel model,String filename)
+        public static EmployeeEntity Convert(EmployeeModel model, String filename)
         {
             EmployeeEntity emp = new EmployeeEntity()
             {

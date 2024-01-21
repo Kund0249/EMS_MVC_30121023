@@ -23,7 +23,7 @@ namespace EMS_MVC_30121023.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            return View(new EmployeeModel());
         }
 
         [HttpPost]
@@ -41,7 +41,7 @@ namespace EMS_MVC_30121023.Controllers
                 repository.Save(EmployeeModel.Convert(model, filename));
                 ModelState.Clear();
             }
-            return View();
+            return View(model);
         }
     }
 }

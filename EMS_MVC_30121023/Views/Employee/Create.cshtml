@@ -33,13 +33,7 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="DepartmentId" class="form-label">Select Department</label>
-                        @Html.DropDownListFor(x => x.DepartmentId, new List<SelectListItem>()
-                        {
-                        new SelectListItem(){Text="Department Manager",Value="1"},
-                        new SelectListItem(){Text="Finance & Account",Value="2"},
-                        new SelectListItem(){Text="Brokerage Manager",Value="3"},
-                        new SelectListItem(){Text="System ADMIN",Value="4"}
-                      }, "Select", new { @class = "form-control" })
+                        @Html.DropDownListFor(x => x.DepartmentId,Model.DepartmentList, "Select", new { @class = "form-control" })
                     </div>
                     <div class="mb-3">
                         <label for="DOJ" class="form-label">Employee DOJ</label>
