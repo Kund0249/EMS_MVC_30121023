@@ -13,6 +13,9 @@ namespace EMS_MVC_30121023
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            //Global Filter
+            GlobalFilters.Filters.Add(new AuthorizeAttribute());
         }
     }
 }

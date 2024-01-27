@@ -8,6 +8,8 @@ using EMS_MVC_30121023.Models.Department;
 
 namespace EMS_MVC_30121023.Controllers
 {
+    //Controller Lavel Filter
+    //[Authorize]
     public class DepartmentController : APPController
     {
         private readonly DepartmentRepository _repository;
@@ -18,6 +20,8 @@ namespace EMS_MVC_30121023.Controllers
         //Action
         //EndPoint
         [HttpGet]
+        //Action Lavel Filter
+        //[Authorize]
         public ViewResult Index()
         {
             //if (TempData["Message"] != null)
@@ -63,6 +67,7 @@ namespace EMS_MVC_30121023.Controllers
         }
 
         [HttpGet]
+        [Route("AddDepartment")]
         public ViewResult Create()
         {
             return View();
@@ -100,6 +105,7 @@ namespace EMS_MVC_30121023.Controllers
 
 
         [HttpGet]
+        [Route("ModifyDepartment/{id}")]
         public ActionResult Edit(int id)
         {
             DepartmentModel model = _repository.GetDepartment(id);
