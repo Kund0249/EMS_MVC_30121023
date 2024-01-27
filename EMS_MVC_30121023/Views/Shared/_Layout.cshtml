@@ -9,6 +9,10 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link href="~/Content/CSS/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/toastr/toastr.min.css" rel="stylesheet" />
+
+    <script src="~/Content/jquery/jquery.min.js"></script>
+    <script src="~/Content/toastr/toastr.min.js"></script>
 
     <title>EMS</title>
 </head>
@@ -23,11 +27,11 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         @*<a class="nav-link active" aria-current="page" href="#">Home</a>*@
-                        @Html.ActionLink("Department","Index","Department",null,new {@class="nav-link active"})
+                        @Html.ActionLink("Department", "Index", "Department", null, new { @class = "nav-link active" })
                     </li>
-                    
+
                 </ul>
-               
+
             </div>
         </div>
     </nav>
@@ -37,6 +41,14 @@
         @RenderBody()
     </div>
 
-    @RenderSection("Script",false) 
+    @RenderSection("Script", false)
+
+    <script>
+        var message = @(TempData["Message"] != null ? Html.Raw(TempData["Message"]) : Html.Raw("undefined"));
+        if (message) {
+           // alert(message);
+            toastr[message.MessageType](message.Message, message.Title);
+        }
+    </script>
 </body>
 </html>

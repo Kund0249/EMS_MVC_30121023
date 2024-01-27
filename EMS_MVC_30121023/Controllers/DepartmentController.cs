@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using EMS_MVC_30121023.Models.Department;
 
 namespace EMS_MVC_30121023.Controllers
 {
-    public class DepartmentController : Controller
+    public class DepartmentController : APPController
     {
         private readonly DepartmentRepository _repository;
         public DepartmentController()
@@ -33,29 +34,29 @@ namespace EMS_MVC_30121023.Controllers
             //};
             //return View(model);
 
-                //List<DepartmentModel> models = new List<DepartmentModel>()
-                //{
-                //    new DepartmentModel()
-                //    {
-                //        DepartmentId = 1,
-                //        DepartmentCode = "HR",
-                //        DepartmentName = "Human Resource"
-                //    },
-                //     new DepartmentModel()
-                //    {
-                //        DepartmentId = 2,
-                //        DepartmentCode = "MR",
-                //        DepartmentName = "Manager"
-                //    },
-                //      new DepartmentModel()
-                //    {
-                //        DepartmentId = 3,
-                //        DepartmentCode = "DPTR",
-                //        DepartmentName = "Department Manager"
-                //    }
-                //};
+            //List<DepartmentModel> models = new List<DepartmentModel>()
+            //{
+            //    new DepartmentModel()
+            //    {
+            //        DepartmentId = 1,
+            //        DepartmentCode = "HR",
+            //        DepartmentName = "Human Resource"
+            //    },
+            //     new DepartmentModel()
+            //    {
+            //        DepartmentId = 2,
+            //        DepartmentCode = "MR",
+            //        DepartmentName = "Manager"
+            //    },
+            //      new DepartmentModel()
+            //    {
+            //        DepartmentId = 3,
+            //        DepartmentCode = "DPTR",
+            //        DepartmentName = "Department Manager"
+            //    }
+            //};
 
-                //return View(models);
+            //return View(models);
 
             var data = _repository.GetDepartments;
             return View(data);
@@ -73,20 +74,36 @@ namespace EMS_MVC_30121023.Controllers
             if (ModelState.IsValid)
             {
                 if (_repository.Save(model, out string errormessage))
+                {
+                    //var alertmessage = new
+                    //{
+                    //    Title = "Success Message",
+                    //    Message = "Record Created Successfully!",
+                    //    MessageType = "success"
+                    //};
+
+                    ////string message = "Record Created Successfully!";
+
+                    //var JSConverter = new JavaScriptSerializer();
+                    //TempData["Message"] = JSConverter.Serialize(alertmessage);
+
+                    Notification("Sucees", "Record Create successfully",MessageType.success);
                     return RedirectToAction("Index");
+                }
                 else
-                    ViewBag.Message = errormessage;
+                    Notification("Error", errormessage, MessageType.error);
+
             }
-                
-           return View();
+
+            return View();
         }
 
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-           DepartmentModel model = _repository.GetDepartment(id);
-            if(model != null)
+            DepartmentModel model = _repository.GetDepartment(id);
+            if (model != null)
             {
                 return View(model);
             }
@@ -97,11 +114,14 @@ namespace EMS_MVC_30121023.Controllers
 
         public ActionResult Edit(DepartmentModel model)
         {
-            if(_repository.Update(model,out string Message))
+            if (_repository.Update(model, out string Message))
             {
+                Notification("Sucees", "Record updated successfully", MessageType.success);
+
                 return RedirectToAction("Index");
             }
-            ViewBag.Message = Message;
+            Notification("warning", Message, MessageType.warning);
+
             return View();
         }
 
@@ -109,11 +129,11 @@ namespace EMS_MVC_30121023.Controllers
         public ActionResult Delete(int id)
         {
             if (_repository.Remove(id, out string Message))
-                TempData["Message"] = "Record Removed successfully!";
+                Notification("Success", "Record delete successfully!", MessageType.success);
             else
-                TempData["Message"] = Message;
+                Notification("Error", Message, MessageType.error);
 
-           return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
     }
 }
