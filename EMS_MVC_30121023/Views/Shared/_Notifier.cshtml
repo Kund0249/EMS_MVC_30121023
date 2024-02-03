@@ -1,0 +1,7 @@
+﻿<script>
+        var message = @(TempData["Message"] != null ? Html.Raw(TempData["Message"]) : Html.Raw("undefined"));
+        if (message) {
+           // alert(message);
+            toastr[message.MessageType](message.Message, message.Title);
+        }
+</script>

@@ -24,8 +24,21 @@ namespace EMS_MVC_30121023.Controllers
             {
                 FormsAuthentication.RedirectFromLoginPage(model.UserId,false);
             }
-            Notification("Invalid Credentials", "Incorrect userid or password!", MessageType.error);
+            else
+            {
+                Notification("Invalid Credentials", "Incorrect userid or password!", MessageType.error);
+
+            }
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+           return RedirectToAction("Index");
         }
     }
 }

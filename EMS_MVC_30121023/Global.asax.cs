@@ -15,7 +15,10 @@ namespace EMS_MVC_30121023
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             //Global Filter
+
             GlobalFilters.Filters.Add(new AuthorizeAttribute());
+            GlobalFilters.Filters.Add(new HandleErrorAttribute() { View = "Error" });
+
         }
     }
 }

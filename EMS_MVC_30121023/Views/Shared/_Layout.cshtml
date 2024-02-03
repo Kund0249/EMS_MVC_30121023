@@ -29,7 +29,25 @@
                         @*<a class="nav-link active" aria-current="page" href="#">Home</a>*@
                         @Html.ActionLink("Department", "Index", "Department", null, new { @class = "nav-link active" })
                     </li>
-
+                    <li class="nav-item">
+                        @*<a class="nav-link active" aria-current="page" href="#">Home</a>*@
+                        @Html.ActionLink("Employee", "Create", "Employee", null, new { @class = "nav-link active" })
+                    </li>
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            <a class="nav-link"
+                               style="text-decoration : none">
+                                <strong>Welcome - </strong> @HttpContext.Current.User.Identity.Name
+                            </a>
+                        </li><li>
+                            <a class="nav-link" style="text-decoration : none; cursor : pointer">
+                                @using (Html.BeginForm("Logout","Login",FormMethod.Post)) { 
+                                  <input type="submit" value="Logout" class="btn btn-warning" />
+                                }
+                            </a>
+                        </li>
+                    }
                 </ul>
 
             </div>
@@ -43,12 +61,6 @@
 
     @RenderSection("Script", false)
 
-    <script>
-        var message = @(TempData["Message"] != null ? Html.Raw(TempData["Message"]) : Html.Raw("undefined"));
-        if (message) {
-           // alert(message);
-            toastr[message.MessageType](message.Message, message.Title);
-        }
-    </script>
+
 </body>
 </html>

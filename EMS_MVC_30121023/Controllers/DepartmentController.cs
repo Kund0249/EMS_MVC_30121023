@@ -10,6 +10,7 @@ namespace EMS_MVC_30121023.Controllers
 {
     //Controller Lavel Filter
     //[Authorize]
+    //[HandleError]
     public class DepartmentController : APPController
     {
         private readonly DepartmentRepository _repository;
@@ -22,58 +23,28 @@ namespace EMS_MVC_30121023.Controllers
         [HttpGet]
         //Action Lavel Filter
         //[Authorize]
+
+        [Route("")]
+        [OutputCache(Duration =30)]
         public ViewResult Index()
         {
-            //if (TempData["Message"] != null)
-            //    ViewBag.Message = TempData["Message"];
-
-            //string Message = "Hello John - from Index Action Method";
-            //object ob = Message;
-            // return View(ob);
-            //DepartmentModel model = new DepartmentModel()
-            //{
-            //    DepartmentId = 1,
-            //    DepartmentCode = "HR",
-            //    DepartmentName = "Human Resource"
-            //};
-            //return View(model);
-
-            //List<DepartmentModel> models = new List<DepartmentModel>()
-            //{
-            //    new DepartmentModel()
-            //    {
-            //        DepartmentId = 1,
-            //        DepartmentCode = "HR",
-            //        DepartmentName = "Human Resource"
-            //    },
-            //     new DepartmentModel()
-            //    {
-            //        DepartmentId = 2,
-            //        DepartmentCode = "MR",
-            //        DepartmentName = "Manager"
-            //    },
-            //      new DepartmentModel()
-            //    {
-            //        DepartmentId = 3,
-            //        DepartmentCode = "DPTR",
-            //        DepartmentName = "Department Manager"
-            //    }
-            //};
-
-            //return View(models);
-
+            //Session["Name"] = "Name";
+            //ViewBag.Names = new string[] { "Option-1", "Option-2", "Option-3" };
+            //ViewData["NamesD"] = new string[] { "Option-4", "Option-5", "Option-6" };
+            //throw new Exception("CUstome error");
             var data = _repository.GetDepartments;
             return View(data);
         }
 
         [HttpGet]
-        [Route("AddDepartment")]
+        //[Route("AddDepartment")]
         public ViewResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        //[ActionName("AddDepartment")]
         public ActionResult Create(DepartmentModel model)
         {
             if (ModelState.IsValid)
@@ -105,7 +76,7 @@ namespace EMS_MVC_30121023.Controllers
 
 
         [HttpGet]
-        [Route("ModifyDepartment/{id}")]
+        //[Route("ModifyDepartment/{id}")]
         public ActionResult Edit(int id)
         {
             DepartmentModel model = _repository.GetDepartment(id);
@@ -117,7 +88,7 @@ namespace EMS_MVC_30121023.Controllers
         }
 
         [HttpPost]
-
+        //[Route("ModifyDepartment")]
         public ActionResult Edit(DepartmentModel model)
         {
             if (_repository.Update(model, out string Message))
